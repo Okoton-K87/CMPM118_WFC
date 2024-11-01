@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procedural Map Generator</title>
+    <title>Wave Function Collapse Map Generator</title>
     <script src="./lib/phaser.js"></script>
     <script src="./lib/perlin.js"></script>
-    <script src="./src/Scenes/Load.js"></script>
-    <script src="./src/Scenes/MapScene.js"></script>
-    <script src="./src/Scenes/MapGenerate.js"></script>
-    <script src="./src/Scenes/TestAutoTilingScene.js"></script>
-    <script src="./src/main.js"></script>
+    <!-- Make these scripts modules -->
+    <script type="module" src="./src/Scenes/cell.js"></script>
+    <script type="module" src="./src/Scenes/tile.js"></script>
+    <script type="module" src="./src/Scenes/sketch.js"></script>
+    <script type="module" src="./src/main.js"></script>
 </head>
 <body>
     <div id="phaser-game"></div>
-    <span id="description"></span>
+    <span id="instruction">Press R to Restart</span> <!-- Corrected ID and added text content -->
 </body>
 </html>
