@@ -24,30 +24,49 @@ class WaveFunctionCollapse extends Phaser.Scene {
     preload() {
         // Load tile images as textures, not as displayed images
         for (let i = 0; i < 13; i++) {
-            this.load.image(`tile${i}`, `assets/circuit-coding-train/${i}.png`);
+            //this.load.image(`tile${i}`, `assets/circuit-coding-train/${i}.png`);
+            this.load.image(`tile${i}`, `assets/pixel-roads/${i}.png`);
         }
     }
 
     create() {
         // Initialize tile images by storing texture keys instead of image objects
-        for (let i = 0; i < 13; i++) {
+        for (let i = 0; i < 12; i++) {
             tileImages[i] = `tile${i}`; // Store texture keys only
         }
 
-        // Initialize tiles with edges and setup as before
         tiles[0] = new Tile(this, tileImages[0], ['AAA', 'AAA', 'AAA', 'AAA']);
-        tiles[1] = new Tile(this, tileImages[1], ['BBB', 'BBB', 'BBB', 'BBB']);
-        tiles[2] = new Tile(this, tileImages[2], ['BBB', 'BCB', 'BBB', 'BBB']);
-        tiles[3] = new Tile(this, tileImages[3], ['BBB', 'BDB', 'BBB', 'BDB']);
-        tiles[4] = new Tile(this, tileImages[4], ['ABB', 'BCB', 'BBA', 'AAA']);
-        tiles[5] = new Tile(this, tileImages[5], ['ABB', 'BBB', 'BBB', 'BBA']);
-        tiles[6] = new Tile(this, tileImages[6], ['BBB', 'BCB', 'BBB', 'BCB']);
-        tiles[7] = new Tile(this, tileImages[7], ['BDB', 'BCB', 'BDB', 'BCB']);
-        tiles[8] = new Tile(this, tileImages[8], ['BDB', 'BBB', 'BCB', 'BBB']);
-        tiles[9] = new Tile(this, tileImages[9], ['BCB', 'BCB', 'BBB', 'BCB']);
-        tiles[10] = new Tile(this, tileImages[10], ['BCB', 'BCB', 'BCB', 'BCB']);
-        tiles[11] = new Tile(this, tileImages[11], ['BCB', 'BCB', 'BBB', 'BBB']);
-        tiles[12] = new Tile(this, tileImages[12], ['BBB', 'BCB', 'BBB', 'BCB']);
+        tiles[1] = new Tile(this, tileImages[1], ['ABA', 'ABA', 'ABA', 'AAA']);
+        tiles[2] = new Tile(this, tileImages[2], ['ABA', 'ABA', 'AAA', 'AAA']);
+        tiles[3] = new Tile(this, tileImages[3], ['AAA', 'AAA', 'ABA', 'AAA']);
+        tiles[4] = new Tile(this, tileImages[4], ['AAA', 'AAA', 'AAA', 'AAA']);
+        tiles[5] = new Tile(this, tileImages[5], ['ABA', 'AAA', 'ABA', 'AAA']);
+        tiles[6] = new Tile(this, tileImages[6], ['ABA', 'ABA', 'ABA', 'ABA']);
+        //river tiles have C now to distinguish from roads
+        tiles[7] = new Tile(this, tileImages[7], ['ACA', 'AAA', 'ACA', 'AAA']);
+        tiles[8] = new Tile(this, tileImages[8], ['ACA', 'ACA', 'AAA', 'AAA']);
+        //tiles 9 and 10 are the bridge tiles! they rotate but i wish they didnt
+        tiles[9] = new Tile(this, tileImages[9], ['ACA', 'ABA', 'ADA', 'ABA']);
+        tiles[10] = new Tile(this, tileImages[10], ['ADA', 'AAA', 'ACA', 'AAA']);
+        //tree
+        tiles[11] = new Tile(this, tileImages[11], ['AAA', 'AAA', 'AAA', 'AAA']);
+
+        // // Initialize tiles with edges and setup as before
+        // tiles[0] = new Tile(this, tileImages[0], ['AAA', 'AAA', 'AAA', 'AAA']);
+        // tiles[1] = new Tile(this, tileImages[1], ['BBB', 'BBB', 'BBB', 'BBB']);
+        // tiles[2] = new Tile(this, tileImages[2], ['BBB', 'BCB', 'BBB', 'BBB']);
+        // tiles[3] = new Tile(this, tileImages[3], ['BBB', 'BDB', 'BBB', 'BDB']);
+        // tiles[4] = new Tile(this, tileImages[4], ['ABB', 'BCB', 'BBA', 'AAA']);
+        // tiles[5] = new Tile(this, tileImages[5], ['ABB', 'BBB', 'BBB', 'BBA']);
+        // tiles[6] = new Tile(this, tileImages[6], ['BBB', 'BCB', 'BBB', 'BCB']);
+        // tiles[7] = new Tile(this, tileImages[7], ['BDB', 'BCB', 'BDB', 'BCB']);
+        // tiles[8] = new Tile(this, tileImages[8], ['BDB', 'BBB', 'BCB', 'BBB']);
+        // tiles[9] = new Tile(this, tileImages[9], ['BCB', 'BCB', 'BBB', 'BCB']);
+        // tiles[10] = new Tile(this, tileImages[10], ['BCB', 'BCB', 'BCB', 'BCB']);
+        // tiles[11] = new Tile(this, tileImages[11], ['BCB', 'BCB', 'BBB', 'BBB']);
+        // tiles[12] = new Tile(this, tileImages[12], ['BBB', 'BCB', 'BBB', 'BCB']);
+
+
 
         for (let i = 0; i < 12; i++) {
             tiles[i].index = i;
@@ -56,6 +75,11 @@ class WaveFunctionCollapse extends Phaser.Scene {
         // Generate rotated and unique tiles
         const initialTileCount = tiles.length;
         for (let i = 0; i < initialTileCount; i++) {
+            // Skip rotation for tiles 9, 10, and 11
+            if (i === 9 || i === 10 || i === 11) {
+                continue;
+            }
+            
             let tempTiles = [];
             for (let j = 0; j < 4; j++) {
                 tempTiles.push(tiles[i].rotate(j));
